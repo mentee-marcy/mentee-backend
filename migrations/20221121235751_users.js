@@ -10,7 +10,8 @@ exports.up = function(knex) {
         table.string("username").notNullable().unique()
         table.string("email").notNullable()
         table.string("password").notNullable()
-        table.boolean("mentor").notNullable()
+        table.specificType('tech_stack', 'text ARRAY')
+        // table.boolean("mentor").notNullable()
      })
 };
 
@@ -19,5 +20,8 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-    return knex.schema.dropTableIfExists("users")
+    return knex.schema
+    .dropTableIfExists('mentor')
+    .dropSchemaIfExists('messages')
+    .dropTableIfExists("users")
 };
