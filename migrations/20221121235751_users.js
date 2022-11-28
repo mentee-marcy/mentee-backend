@@ -11,6 +11,7 @@ exports.up = function(knex) {
         table.string("email").notNullable()
         table.string("password").notNullable()
         table.specificType('tech_stack', 'text ARRAY')
+        table.boolean('mentor')
         // table.boolean("mentor").notNullable()
      })
 };
