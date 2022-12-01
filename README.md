@@ -53,11 +53,11 @@ Mentee is a live-communication application that enables Mentees to find a commun
 <!-- CONTACT -->
 ## Contact
 
-Shadman Chowdhury(Product Owner) - https://github.com/shadmanc01 - https://www.linkedin.com/in/shadmanc/
+Shadman Chowdhury(Product Owner/Developer) - https://github.com/shadmanc01 - https://www.linkedin.com/in/shadmanc/
 <br />
-Jose Mazhuvanchery(Scrum Master) - https://github.com/josemazhuvanchery1 - https://www.linkedin.com/in/jose-mazhuvanchery/
+Jose Mazhuvanchery(Scrum Master/Developer) - https://github.com/josemazhuvanchery1 - https://www.linkedin.com/in/jose-mazhuvanchery/
 <br />
-Noel Fernandez(Scrum Master) - https://github.com/noelfernandez98 - https://www.linkedin.com/in/noelfernandez98/
+Noel Fernandez(Scrum Master/Developer) - https://github.com/noelfernandez98 - https://www.linkedin.com/in/noelfernandez98/
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
