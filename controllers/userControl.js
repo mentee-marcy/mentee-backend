@@ -19,8 +19,8 @@ const getAllUsers = async(req, res)=>{
  }
 
 const addUser = async(req,res)=>{
-    //console.log(req.body)
-    const {first_name,last_name, username, email, password,tech_stack,mentor,mentor_obj} = req.body.user
+    console.log(req.body)
+    const {first_name,last_name, username, email, password,tech_stack,mentor,mentor_obj} = req.body
     const checkUserExist = await userModel.findUserFromDB(username)
     
     if(checkUserExist.length>0) res.json({message:"user already exists"})
