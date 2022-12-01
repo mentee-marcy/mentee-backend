@@ -7,6 +7,7 @@ exports.up = function(knex) {
     table.integer("mentor_id").references('id').inTable('users').onDelete('cascade')
     table.string('company_name')
     table.string('bio')
+    table.string('title')
     table.string('location')
   })
 };
