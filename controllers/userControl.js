@@ -10,7 +10,6 @@ const getAllUsers = async(req, res)=>{
 
  const getUser = async(req, res) =>{
     const id = +req.params.id;
-    //console.log(typeof id)
     const user = await userModel.getSingleUserFromDB(id)
     if(user.length >= 1)
         res.status(200).json({"authenticated":"you are authenticated", user})
@@ -47,8 +46,6 @@ const addUser = async(req,res)=>{
 }
 
 const findUser = async (req,res) => {
-    //console.log(req)
-    //console.log(req.body)
     const{username,password} = req.body
     const users = await userModel.findUserFromDB(username)
     try{
