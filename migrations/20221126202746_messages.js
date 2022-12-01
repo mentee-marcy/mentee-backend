@@ -4,6 +4,7 @@
  */
 exports.up = function(knex) {
   return knex.schema.createTable('messages', table =>{
+    table.increments('id').primary()
     table.integer('user_to').references('id').inTable('users');
     table.integer('user_from').references('id').inTable('users');
     table.string('text');
