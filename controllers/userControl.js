@@ -94,6 +94,12 @@ const deleteFriend = async (req,res) =>{
     const {userId} = req.params.id
 }
 
+const acceptFriendRequest = async (req,res) =>{
+    const {id} = req.params;
+    const {friendId} = req.body;
+    const acceptedFriend = await userModel.updateFriendRequestInDB(id,friendId)
+    res.status(200).json(acceptedFriend.rows)
+}
 module.exports ={
     getAllUsers,
     getUser,
@@ -101,5 +107,6 @@ module.exports ={
     findUser,
     addUserAsFriend,
     getFriendsForUser,
-    deleteFriend
+    deleteFriend,
+    acceptFriendRequest
 }
