@@ -90,11 +90,18 @@ const addUserAsFriend = async (req, res) =>{
     return res.status(201).json(friend.rows);
 }
 
+const acceptFriendRequest = async (req,res) =>{
+    const {id} = req.params;
+    const {friendId} = req.body;
+    const acceptedFriend = await userModel.updateFriendRequestInDB(id,friendId)
+    res.status(200).json(acceptedFriend.rows)
+}
 module.exports ={
     getAllUsers,
     getUser,
     addUser,
     findUser,
     addUserAsFriend,
-    getFriendsForUser
+    getFriendsForUser,
+    acceptFriendRequest
 }
