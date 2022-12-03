@@ -1,6 +1,7 @@
 const userModel = require('../Models/userModel');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const pool = require('../dbconfig');
 
 const getAllUsers = async(req, res)=>{
     const users = await userModel.getUsersFromDB();
@@ -57,17 +58,27 @@ const findUser = async (req,res) => {
                 const id = user.id;
                 console.log(id)
                 const token = jwt.sign({id},"jwtSecret");
-
-
                 res.status(200).json({authorized:true,token:token, user:user})
             }
             else{
                 res.status(404).json({message:"wrong password"})
             }
-
         }
     }
     catch {
+    }
+}
+
+const getFriendsForUser = async (req,res) =>{
+    const {id} = req.params;
+    try {
+        const friends = await userModel.getFriendsFromDB(id)
+        res.status(200).json(friends)
+        console.log(friends) 
+    }
+    catch (error){
+        console.error(error);
+        return res.status(500).json("Server Error");
     }
 }
 
@@ -76,5 +87,6 @@ module.exports ={
     getAllUsers,
     getUser,
     addUser,
-    findUser
+    findUser,
+    getFriendsForUser
 }
