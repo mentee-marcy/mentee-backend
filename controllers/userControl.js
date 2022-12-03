@@ -90,16 +90,21 @@ const addUserAsFriend = async (req, res) =>{
     return res.status(201).json(friend.rows);
 }
 
-const deleteFriend = async (req,res) =>{
-    const {userId} = req.params.id
-}
-
 const acceptFriendRequest = async (req,res) =>{
-    const {id} = req.params;
-    const {friendId} = req.body;
-    const acceptedFriend = await userModel.updateFriendRequestInDB(id,friendId)
+    const friendId = req.params.id;
+    const {userId} = req.body;
+    const acceptedFriend = await userModel.updateFriendRequestInDB(userId,friendId)
     res.status(200).json(acceptedFriend.rows)
 }
+
+const deleteFriend = async (req,res) =>{
+    const friendId = req.params.id;
+    const {userId} = req.body;
+    const deletedFriend = await userModel.deleteFriendFromDB(userId,friendId);
+    //console.log(deletedFriend.rows)
+    res.status(200).json(deletedFriend.rows)
+}
+
 module.exports ={
     getAllUsers,
     getUser,
