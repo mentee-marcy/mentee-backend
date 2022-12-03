@@ -24,10 +24,15 @@ function addUserToDB(...args){
 function addMentorDataToDB(...args){
     return pool.query('INSERT INTO mentor (mentor_id,company_name,bio,title,location) VALUES ($1,$2,$3,$4,$5) RETURNING *', args)
 }
+
+function addUserFriendToDB(id, userId){
+    
+}
 module.exports ={
     getUsersFromDB,
     findUserFromDB,
     addUserToDB,
     addMentorDataToDB,
-    getSingleUserFromDB
+    getSingleUserFromDB,
+    addUserFriendToDB,
 }

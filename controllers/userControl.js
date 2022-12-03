@@ -10,7 +10,6 @@ const getAllUsers = async(req, res)=>{
 
  const getUser = async(req, res) =>{
     const id = +req.params.id;
-    //console.log(typeof id)
     const user = await userModel.getSingleUserFromDB(id)
     if(user.length >= 1)
         res.status(200).json({"authenticated":"you are authenticated", user})
@@ -25,7 +24,6 @@ const addUser = async(req,res)=>{
     
     if(checkUserExist.length>0) res.json({message:"user already exists"})
     else{
-         
         let data = {}
         try{
             const salt = await bcrypt.genSalt()
@@ -47,7 +45,6 @@ const addUser = async(req,res)=>{
 }
 
 const findUser = async (req,res) => {
-    //console.log(req)
     //console.log(req.body)
     const{username,password} = req.body
     const users = await userModel.findUserFromDB(username)
@@ -60,24 +57,28 @@ const findUser = async (req,res) => {
                 const id = user.id;
                 console.log(id)
                 const token = jwt.sign({id},"jwtSecret");
-
-
                 res.status(200).json({authorized:true,token:token, user:user})
             }
             else{
                 res.status(404).json({message:"wrong password"})
             }
-
         }
     }
     catch {
     }
 }
 
+const addUserAsFriend = async (req, res) =>{
+    const {id} = req.params;
+    const {userId} = req.body
+    //console.log(userId)
+    const friend = await userModel.addUserFriendToDB(id, userId)
+}
 
 module.exports ={
     getAllUsers,
     getUser,
     addUser,
-    findUser
+    findUser,
+    addUserAsFriend
 }
