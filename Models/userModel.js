@@ -25,6 +25,11 @@ function addMentorDataToDB(...args){
     return pool.query('INSERT INTO mentor (mentor_id,company_name,bio,title,location) VALUES ($1,$2,$3,$4,$5) RETURNING *', args)
 }
 
+
+function addUserFriendToDB(id, userId){
+    
+}
+
 function getFriendsFromDB(id){
     return pool.query(
         "SELECT users.id, first_name, last_name FROM friend_requests JOIN users ON users.id = sender_id OR users.id = reciever_id WHERE sender_id = $1 AND is_accepted = true OR reciever_id = $1 AND is_accepted = true",
@@ -38,5 +43,6 @@ module.exports ={
     addUserToDB,
     addMentorDataToDB,
     getSingleUserFromDB,
+    addUserFriendToDB,
     getFriendsFromDB
 }

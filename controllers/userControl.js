@@ -25,7 +25,6 @@ const addUser = async(req,res)=>{
     
     if(checkUserExist.length>0) res.json({message:"user already exists"})
     else{
-         
         let data = {}
         try{
             const salt = await bcrypt.genSalt()
@@ -47,6 +46,7 @@ const addUser = async(req,res)=>{
 }
 
 const findUser = async (req,res) => {
+    //console.log(req.body)
     const{username,password} = req.body
     const users = await userModel.findUserFromDB(username)
     try{
@@ -69,6 +69,13 @@ const findUser = async (req,res) => {
     }
 }
 
+const addUserAsFriend = async (req, res) =>{
+    const {id} = req.params;
+    const {userId} = req.body
+    //console.log(userId)
+    const friend = await userModel.addUserFriendToDB(id, userId)
+}
+
 const getFriendsForUser = async (req,res) =>{
     const {id} = req.params;
     try {
@@ -88,5 +95,6 @@ module.exports ={
     getUser,
     addUser,
     findUser,
+    addUserAsFriend,
     getFriendsForUser
 }
