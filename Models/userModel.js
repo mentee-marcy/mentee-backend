@@ -41,6 +41,11 @@ function updateFriendRequestInDB(userId,friendId){
     return pool.query("UPDATE friend_requests SET is_accepted = TRUE WHERE sender_id = $1 AND reciever_id = $2 RETURNING *",[userId, friendId])
 }
 
+function deleteFriendFromDB(userId,friendId){
+    return pool.query("DELETE FROM friend_requests WHERE sender_id = $1 AND reciever_id = $2 OR reciever_id = $1 AND sender_id = $2 RETURNING *",
+    [userId, friendId])
+}
+
 module.exports ={
     getUsersFromDB,
     findUserFromDB,
@@ -49,5 +54,6 @@ module.exports ={
     getSingleUserFromDB,
     addUserFriendToDB,
     getFriendsFromDB,
-    updateFriendRequestInDB
+    updateFriendRequestInDB,
+    deleteFriendFromDB
 }
