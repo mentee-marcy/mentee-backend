@@ -37,6 +37,10 @@ function getFriendsFromDB(id){
     
 }
 
+function updateFriendRequestInDB(userId,friendId){
+    return pool.query("UPDATE friend_requests SET is_accepted = TRUE WHERE sender_id = $1 AND reciever_id = $2 RETURNING *",[userId, friendId])
+}
+
 module.exports ={
     getUsersFromDB,
     findUserFromDB,
@@ -44,5 +48,6 @@ module.exports ={
     addMentorDataToDB,
     getSingleUserFromDB,
     addUserFriendToDB,
-    getFriendsFromDB
+    getFriendsFromDB,
+    updateFriendRequestInDB
 }

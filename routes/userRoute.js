@@ -9,7 +9,7 @@ router.post('/register', userControl.addUser)
 router.post('/login', userControl.findUser)
 router.post('/friend/:id', userControl.addUserAsFriend)
 router.get('/:id/friends', userControl.getFriendsForUser)
-
+router.put('/friend/:id', userControl.acceptFriendRequest)
 
 router.all('*', (req,res)=>{
     res.send('This path does not exist')
