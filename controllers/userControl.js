@@ -69,13 +69,6 @@ const findUser = async (req,res) => {
     }
 }
 
-const addUserAsFriend = async (req, res) =>{
-    const {id} = req.params;
-    const {userId} = req.body
-    //console.log(userId)
-    const friend = await userModel.addUserFriendToDB(id, userId)
-}
-
 const getFriendsForUser = async (req,res) =>{
     const {id} = req.params;
     try {
@@ -89,6 +82,13 @@ const getFriendsForUser = async (req,res) =>{
     }
 }
 
+const addUserAsFriend = async (req, res) =>{
+    const {id} = req.params;
+    const {userId} = req.body
+    const friend = await userModel.addUserFriendToDB(id, userId)
+    console.log(friend)
+    return res.status(201).json(friend.rows);
+}
 
 module.exports ={
     getAllUsers,
