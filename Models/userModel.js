@@ -26,8 +26,8 @@ function addMentorDataToDB(...args){
 }
 
 
-function addUserFriendToDB(id, userId){
-    return pool.query ("INSERT INTO friend_requests (sender_id,reciever_id) VALUES ($1,$2) RETURNING *",[userId, id])
+function addUserFriendToDB(userId,friendId){
+    return pool.query ("INSERT INTO friend_requests (sender_id,reciever_id) VALUES ($1,$2) RETURNING *",[userId, friendId])
 }
 
 function getFriendsFromDB(id){

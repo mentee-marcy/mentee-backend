@@ -83,11 +83,15 @@ const getFriendsForUser = async (req,res) =>{
 }
 
 const addUserAsFriend = async (req, res) =>{
-    const {id} = req.params;
+    const friendId = req.params.id;
     const {userId} = req.body
-    const friend = await userModel.addUserFriendToDB(id, userId)
+    const friend = await userModel.addUserFriendToDB(userId,friendId)
     console.log(friend)
     return res.status(201).json(friend.rows);
+}
+
+const deleteFriend = async (req,res) =>{
+    const {userId} = req.params.id
 }
 
 module.exports ={
@@ -96,5 +100,6 @@ module.exports ={
     addUser,
     findUser,
     addUserAsFriend,
-    getFriendsForUser
+    getFriendsForUser,
+    deleteFriend
 }
