@@ -95,7 +95,7 @@ const acceptFriendRequest = async (req,res) =>{
     const friendId = req.params.id;
     const {userId} = req.body;
     const acceptedFriend = await userModel.updateFriendRequestInDB(userId,friendId)
-    res.status(200).json(acceptedFriend.rows)
+    res.status(200).json(acceptedFriend.rows[0])
 }
 
 const deleteFriend = async (req,res) =>{
@@ -106,6 +106,19 @@ const deleteFriend = async (req,res) =>{
     res.status(200).json(deletedFriend.rows)
 }
 
+const getPendingFriendRequest = async (req,res) =>{
+    const id = req.params.id;
+    try {
+        const users = await userModel.getPendingFriendRequestFromDB(id);
+        res.status(200).json(users)
+    }
+    catch (error){
+        console.log(error);
+        res.status(500).json(error)
+    }
+    
+}
+
 module.exports ={
     getAllUsers,
     getUser,
@@ -114,5 +127,6 @@ module.exports ={
     addUserAsFriend,
     getFriendsForUser,
     deleteFriend,
-    acceptFriendRequest
+    acceptFriendRequest,
+    getPendingFriendRequest
 }

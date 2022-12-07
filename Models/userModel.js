@@ -5,7 +5,12 @@ function getUsersFromDB(){
 }
 
 function getSingleUserFromDB(id){
-    return pool.query('SELECT * FROM users WHERE id = $1',[id]).then(results => {return results.rows})
+    let data =  pool.query('SELECT * FROM users WHERE id = $1',[id]).then(results => {return results.rows})
+     console.log(data)
+     if(data.mentor){
+        data =  pool.query('SELECT*FROM users JOIN mentor ON users.id = mentor_id WHERE user.id = $1 )',[id]).then(results => {return results.rows})
+     }
+     return data
 }
 
 function findUserFromDB(username){
@@ -45,6 +50,13 @@ function deleteFriendFromDB(userId,friendId){
     [userId, friendId])
 }
 
+function getPendingFriendRequestFromDB(id){
+    return pool.query(
+        "SELECT users.id, first_name, last_name,tech_stack,mentor FROM friend_requests JOIN users ON users.id = sender_id OR users.id = reciever_id WHERE (sender_id = $1  OR reciever_id = $1) AND is_accepted = false",
+        [id]).then(results => results.rows) 
+    
+}
+
 module.exports ={
     getUsersFromDB,
     findUserFromDB,
@@ -54,5 +66,6 @@ module.exports ={
     addUserFriendToDB,
     getFriendsFromDB,
     updateFriendRequestInDB,
-    deleteFriendFromDB
+    deleteFriendFromDB,
+    getPendingFriendRequestFromDB
 }

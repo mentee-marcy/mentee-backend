@@ -11,6 +11,8 @@ router.post('/friend/:id', userControl.addUserAsFriend)
 router.get('/:id/friends', userControl.getFriendsForUser)
 router.put('/friend/:id', userControl.acceptFriendRequest)
 router.delete('/friends/:id', userControl.deleteFriend)
+router.get('/friends/requests/:id',userControl.getPendingFriendRequest)
+
 router.all('*', (req,res)=>{
     res.send('This path does not exist')
 });
