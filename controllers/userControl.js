@@ -94,7 +94,7 @@ const acceptFriendRequest = async (req,res) =>{
     const friendId = req.params.id;
     const {userId} = req.body;
     const acceptedFriend = await userModel.updateFriendRequestInDB(userId,friendId)
-    res.status(200).json(acceptedFriend.rows)
+    res.status(200).json(acceptedFriend.rows[0])
 }
 
 const deleteFriend = async (req,res) =>{
