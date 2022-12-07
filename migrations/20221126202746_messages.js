@@ -7,6 +7,7 @@ exports.up = function(knex) {
     table.integer('user_to').references('id').inTable('users');
     table.integer('user_from').references('id').inTable('users');
     table.string('text');
+    table.timestamps(true, true);
   })
 };
 
