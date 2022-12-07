@@ -10,10 +10,11 @@ const getAllUsers = async(req, res)=>{
 }
 
  const getUser = async(req, res) =>{
-    const id = +req.params.id;
+    const id = req.id
     const user = await userModel.getSingleUserFromDB(id)
+    console.log(user)
     if(user.length >= 1)
-        res.status(200).json({"authenticated":"you are authenticated", user})
+        res.status(200).json(user[0])
     else 
         res.status(400).send("user does not exist")
  }
