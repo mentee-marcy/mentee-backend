@@ -4,7 +4,7 @@ const userControl = require('../controllers/userControl')
 const verifyJWT = require('../auth')
 
 router.get('/', userControl.getAllUsers);
-router.get('/:id', verifyJWT, userControl.getUser);
+router.get('/profile', verifyJWT, userControl.getUser);
 router.post('/register', userControl.addUser)
 router.post('/login', userControl.findUser)
 router.post('/friend/:id', userControl.addUserAsFriend)
