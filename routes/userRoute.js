@@ -12,6 +12,7 @@ router.get('/:id/friends', userControl.getFriendsForUser)
 router.put('/friend/:id', userControl.acceptFriendRequest)
 router.delete('/friends/:id', userControl.deleteFriend)
 router.get('/friends/requests/:id',userControl.getPendingFriendRequest)
+router.get('/:id', userControl.getSingleUser)
 
 
 router.all('*', (req,res)=>{
