@@ -57,7 +57,7 @@ Shadman Chowdhury(Product Owner/Developer) - https://github.com/shadmanc01 - htt
 <br />
 Jose Mazhuvanchery(Scrum Master/Developer) - https://github.com/josemazhuvanchery1 - https://www.linkedin.com/in/jose-mazhuvanchery/
 <br />
-Noel Fernandez(Scrum Master/Developer) - https://github.com/noelfernandez98 - https://www.linkedin.com/in/noelfernandez98/
+Noel Fernandez(Scrum Master) - https://github.com/noelfernandez98 - https://www.linkedin.com/in/noelfernandez98/
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
