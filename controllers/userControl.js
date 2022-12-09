@@ -1,7 +1,7 @@
 const userModel = require('../Models/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const pool = require('../dbconfig');
+
 
 const getAllUsers = async(req, res)=>{
     const users = await userModel.getUsersFromDB();
