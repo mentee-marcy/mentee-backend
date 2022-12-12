@@ -15,10 +15,10 @@ app.use(express.json())
 
 //require routes
 const userRoute = require('./routes/userRoute.js');
-
+const messageRoute = require('./routes/messageRoute')
 //navigate routes
 app.use('/users', userRoute)
-
+app.use('/messages', messageRoute )
 
 //all other routes
 app.all('*', (req, res)=>{
