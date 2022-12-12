@@ -13,7 +13,19 @@ const getMessages = async (req, res) =>{
     }
 }
 
+const addMessage = async (req,res) =>{
+    const {senderId, recieverId} = req.params;
+    const text = req.body.message;
+    try{
+        const newText = await messagesModel.addMessageToDB(senderId,recieverId,text);
+        return res.status(201).json(newText);
+    }
+    catch(err){
+        res.status(500).json(err)
+    }
+}
 
 module.exports ={
-    getMessages
+    getMessages,
+    addMessage
 }
