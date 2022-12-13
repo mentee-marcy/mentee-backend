@@ -8,6 +8,7 @@ function getMessagesFromDB(sender_id,reciever_id){
 }
 
 function addMessageToDB(sender_Id,reciever_Id,text){
+    
     return pool.query('INSERT INTO messages (sender_id,reciever_id,text) VALUES ($1,$2,$3) RETURNING * ',[sender_Id, reciever_Id,text])
     .then(results => {
         return results.rows

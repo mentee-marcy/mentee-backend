@@ -3,7 +3,8 @@ const express = require('express');
 const app = express();
 let cors = require('cors');
 const http = require('http');
-const { Server } = require('socket.io');
+//const { Server } = require('socket.io');
+const socket = require("socket.io");
 
 //Port
 const PORT = process.env.PORT || 8000;
@@ -26,28 +27,51 @@ app.all('*', (req, res)=>{
 });
 
 //chat server
-const server = http.createServer(app);
-const io = new Server(server, {
-    cors: {
-      origin: ["http://localhost:3000"],
-      methods: ["GET", "POST"]
+// const server = http.createServer(app);
+// const io = new Server(server, {
+//     cors: {
+//       origin: ["http://localhost:3000"],
+//       methods: ["GET", "POST"]
+//     }
+// });
+
+// io.on("connection", socket => {
+//     console.log('connected', socket.id);
+  
+//     socket.on("chat", payload => {
+//       console.log('payload', payload)
+//       socket.broadcast.emit("receive_message");
+//     }); 
+  
+//     socket.on("disconnect", () => {
+//       console.log("user disconnected", socket.id);
+//     });
+// });
+const server = app.listen(PORT, () => {
+  console.log(`http://localhost:${PORT}`)
+});
+
+const io = socket(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    credentials: true,
+  },
+});
+
+global.onlineUsers = new Map();
+io.on("connection", (socket) => {
+  console.log('connected', socket.id);
+  global.chatSocket = socket;
+  socket.on("add-user", (userId) => {
+    onlineUsers.set(userId, socket.id);
+  });
+
+  socket.on("send-msg", (data) => {
+    console.log(data)
+    const sendUserSocket = onlineUsers.get(data.reciever_id);
+    if (sendUserSocket) {
+      socket.to(sendUserSocket).emit("msg-recieve", data.text);
     }
+  });
 });
-
-io.on("connection", socket => {
-    console.log('connected', socket.id);
-  
-    socket.on("chat", payload => {
-      console.log('payload', payload)
-      socket.broadcast.emit("receive_message");
-    }); 
-  
-    socket.on("disconnect", () => {
-      console.log("user disconnected", socket.id);
-    });
-});
-
 // port listener
-app.listen(PORT, () => {
-    console.log(`http://localhost:${PORT}`)
-});

@@ -4,9 +4,8 @@ function getUsersFromDB(){
     return  pool.query('SELECT * FROM users').then(results => {return results.rows})
 }
 
-function getSingleUserFromDB(id){
-    let data =  pool.query('SELECT * FROM users WHERE id = $1',[id]).then(results => {return results.rows})
-     console.log(data)
+async function getSingleUserFromDB(id){
+    let data =  await pool.query('SELECT * FROM users WHERE id = $1',[id]).then(results => {return results.rows})
      if(data.mentor){
         data =  pool.query('SELECT*FROM users JOIN mentor ON users.id = mentor_id WHERE user.id = $1 )',[id]).then(results => {return results.rows})
      }
