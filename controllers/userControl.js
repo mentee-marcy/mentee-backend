@@ -5,17 +5,15 @@ const jwt = require('jsonwebtoken');
 
 const getAllUsers = async(req, res)=>{
     const users = await userModel.getUsersFromDB();
-    console.log(users)
     res.status(200).json(users)
 }
 
  const getUser = async(req, res) =>{
     const id = req.id;
     const user = await userModel.getSingleUserFromDB(id)
-    console.log(user)
-    if(user.length >= 1)
+    if(user.length >= 1){
         res.status(200).json(user[0])
-    else 
+    }else 
         res.status(400).send("user does not exist")
  }
 
@@ -26,7 +24,6 @@ const getAllUsers = async(req, res)=>{
  }
 
 const addUser = async(req,res)=>{
-    console.log(req.body)
     const {first_name,last_name, username, email, password,tech_stack,mentor,mentor_obj} = req.body
     const checkUserExist = await userModel.findUserFromDB(username)
     
@@ -47,13 +44,11 @@ const addUser = async(req,res)=>{
             const id = data.id
             const {company_name, bio, title, location} = mentor_obj
             const response = await userModel.addMentorDataToDB(id,company_name,bio,title,location)
-            console.log(response.rows[0])
         }
     }
 }
 
 const findUser = async (req,res) => {
-    //console.log(req.body)
     const{username,password} = req.body
     const users = await userModel.findUserFromDB(username)
     try{
@@ -63,7 +58,6 @@ const findUser = async (req,res) => {
             const user = users[0]
             if(await bcrypt.compare(password, user.password)){
                 const id = user.id;
-                console.log(id)
                 const token = jwt.sign({id},"jwtSecret");
                 res.status(200).json({authorized:true,token:token, user:user})
             }
@@ -80,8 +74,7 @@ const getFriendsForUser = async (req,res) =>{
     const {id} = req.params;
     try {
         const friends = await userModel.getFriendsFromDB(id)
-        res.status(200).json(friends)
-        console.log(friends) 
+        res.status(200).json(friends) 
     }
     catch (error){
         console.error(error);
@@ -93,7 +86,6 @@ const addUserAsFriend = async (req, res) =>{
     const friendId = req.params.id;
     const {userId} = req.body
     const friend = await userModel.addUserFriendToDB(userId,friendId)
-    console.log(friend)
     return res.status(201).json(friend.rows);
 }
 
@@ -108,7 +100,6 @@ const deleteFriend = async (req,res) =>{
     const friendId = req.params.id;
     const {userId} = req.body;
     const deletedFriend = await userModel.deleteFriendFromDB(userId,friendId);
-    //console.log(deletedFriend.rows)
     res.status(200).json(deletedFriend.rows)
 }
 
