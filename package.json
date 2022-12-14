@@ -10,7 +10,6 @@
     "rollback": "npx knex migrate:rollback",
     "seed": "npx knex seed:run",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "blitz build && blitz prisma migrate deploy"
   },
   "repository": {
     "type": "git",
