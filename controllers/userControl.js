@@ -27,27 +27,42 @@ const addUser = async(req,res)=>{
     const {first_name,last_name, username, email, password,tech_stack,mentor,mentor_obj} = req.body
     const checkUserExist = await userModel.findUserFromDB(username)
     
-    if(checkUserExist.length>0) res.json({message:"user already exists"})
+    if(checkUserExist.length>0) throw new Error('User exists')
     else{
-        let data = {}
         try{
             const salt = await bcrypt.genSalt()
             const hashedPassword = await bcrypt.hash(password,salt)
-             data = await userModel.addUserToDB(first_name,last_name,username,email,hashedPassword,tech_stack,mentor)
+            let data = await userModel.addUserToDB(first_name,last_name,username,email,hashedPassword,tech_stack,mentor)
+            if(mentor){
+                const id = data.id
+                const {company_name, bio, title, location} = mentor_obj
+                const mentorData = await userModel.addMentorDataToDB(id,company_name,bio,title,location)
+                data = {
+                    ...data,
+                    ...mentorData
+                }
+            }
             res.status(201).json(data)
         }
         catch (err){
-            console.log(err)
-            return res.status(500).send('server error')
+            return res.status(402).json(err)
         }
-        if(mentor){
-            const id = data.id
-            const {company_name, bio, title, location} = mentor_obj
-            const response = await userModel.addMentorDataToDB(id,company_name,bio,title,location)
-        }
+        
     }
 }
+const createAvatar = async (req,res) =>{
+    const {avatar,id} = req.body
+    console.log(id)
+    try{
+        await userModel.addAvatarToDB(avatar,id)
+        res.status(200).json('Ok')
+    }
+    catch(err){
+        res.status(500).json(err)
+    }
+    
 
+}
 const findUser = async (req,res) => {
     const{username,password} = req.body
     const users = await userModel.findUserFromDB(username)
@@ -126,5 +141,6 @@ module.exports ={
     deleteFriend,
     acceptFriendRequest,
     getPendingFriendRequest,
-    getSingleUser
+    getSingleUser,
+    createAvatar
 }

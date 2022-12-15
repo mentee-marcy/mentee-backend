@@ -24,6 +24,17 @@ function addUserToDB(...args){
     })
 }
 
+async function addAvatarToDB(avatar,id){
+    
+    try{
+        await pool.query('UPDATE users SET avatar = $1 WHERE id = $2',[avatar,id])
+    }
+    catch(err){
+        console.log(err)
+    }
+     
+}
+
 function addMentorDataToDB(...args){
     return pool.query('INSERT INTO mentor (mentor_id,company_name,bio,title,location) VALUES ($1,$2,$3,$4,$5) RETURNING *', args)
 }
@@ -35,7 +46,7 @@ function addUserFriendToDB(userId,friendId){
 
 function getFriendsFromDB(id){
     return pool.query(
-        "SELECT users.id, first_name, last_name,tech_stack,mentor FROM friend_requests JOIN users ON users.id = sender_id OR users.id = reciever_id WHERE (sender_id = $1  OR reciever_id = $1) AND is_accepted = true",
+        "SELECT users.id, first_name, last_name,tech_stack,avatar,mentor FROM friend_requests JOIN users ON users.id = sender_id OR users.id = reciever_id WHERE (sender_id = $1  OR reciever_id = $1) AND is_accepted = true",
         [id]).then(results => results.rows) 
     
 }
@@ -67,5 +78,6 @@ module.exports ={
     getFriendsFromDB,
     updateFriendRequestInDB,
     deleteFriendFromDB,
-    getPendingFriendRequestFromDB
+    getPendingFriendRequestFromDB,
+    addAvatarToDB
 }

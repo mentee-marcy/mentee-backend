@@ -7,6 +7,9 @@ router.get('/', userControl.getAllUsers);
 router.get('/profile', verifyJWT, userControl.getUser);
 router.post('/register', userControl.addUser)
 router.post('/login', userControl.findUser)
+router.put('/avatar',userControl.createAvatar)
+
+
 router.post('/friend/:id', userControl.addUserAsFriend)
 router.get('/:id/friends', userControl.getFriendsForUser)
 router.put('/friend/:id', userControl.acceptFriendRequest)
