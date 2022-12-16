@@ -63,7 +63,7 @@ function deleteFriendFromDB(userId,friendId){
 
 function getPendingFriendRequestFromDB(id){
     return pool.query(
-        "SELECT users.id, first_name, last_name,tech_stack,mentor FROM friend_requests JOIN users ON users.id = sender_id WHERE (reciever_id = $1) AND is_accepted = false",
+        "SELECT users.id, first_name, last_name,tech_stack, avatar, mentor FROM friend_requests JOIN users ON users.id = sender_id WHERE (reciever_id = $1) AND is_accepted = false",
         [id]).then(results => results.rows) 
     
 }
