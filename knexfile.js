@@ -8,19 +8,17 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      database: 'mentee',
+      database: process.env.DATABASE,
       user:     process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD
     }
   },
 
-  
   production: {
     client: 'pg',
     connection: {
-      database: 'mentee',
-      user:     process.env.POSTGRES_USERNAME,
-      password: process.env.POSTGRES_PASSWORD
+      connectionString: process.env.DATABASE_URL,
+      ssl: {rejectUnauthorized: false}
     },
     pool: {
       min: 2,
