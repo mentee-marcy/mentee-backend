@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "nodemon": "nodemon app.js",
     "latest": "npx knex migrate:latest",
     "rollback": "npx knex migrate:rollback",
