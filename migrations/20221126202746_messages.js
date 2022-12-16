@@ -8,6 +8,7 @@ exports.up = function(knex) {
     table.integer('sender_id').references('id').inTable('users');
     table.integer('reciever_id').references('id').inTable('users');
     table.string('text');
+    table.timestamps();
   })
 };
 
