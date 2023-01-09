@@ -12,7 +12,7 @@
     Mentee builds a diverse community where non-traditional learners receive mentorship from tech professionals through communication and collaboration to build a more diverse industry by shortening the margin of non-traditional backgrounds. 
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://youtu.be/d5YbjtlOdD4">View Demo</a>
    
   </p>
 </div>
