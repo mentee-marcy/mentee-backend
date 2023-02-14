@@ -7,7 +7,7 @@ const http = require('http');
 const socket = require("socket.io");
 
 //Port
-const PORT = process.env.PORT || 3010;
+const PORT =  3010; /*process.env.PORT ||*/
 
 //middleware
 app.use(cors());
